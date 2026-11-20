@@ -1,6 +1,3 @@
-# Clasificacion con arbol de decision y bosque aleatorio
-# Conjunto de datos: Iris (incluido en scikit-learn)
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -14,8 +11,6 @@ from sklearn.metrics import (
     confusion_matrix,
     classification_report
 )
-
-# 1. Cargar los datos
 iris = load_iris()
 X = pd.DataFrame(iris.data, columns=iris.feature_names)
 y = pd.Series(iris.target, name="especie")
@@ -24,8 +19,6 @@ print("Primeros registros:")
 print(X.head())
 print("\nCantidad de registros:", X.shape[0])
 print("Clases:", iris.target_names)
-
-# 2. Separar datos de entrenamiento y prueba
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
@@ -33,23 +26,15 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42,
     stratify=y
 )
-
-# 3. Crear y entrenar el arbol de decision
 arbol = DecisionTreeClassifier(max_depth=3, random_state=42)
 arbol.fit(X_train, y_train)
-
-# 4. Crear y entrenar el bosque aleatorio
 bosque = RandomForestClassifier(
     n_estimators=100,
     random_state=42
 )
 bosque.fit(X_train, y_train)
-
-# 5. Realizar predicciones
 pred_arbol = arbol.predict(X_test)
 pred_bosque = bosque.predict(X_test)
-
-# 6. Evaluar los dos modelos
 precision_arbol = accuracy_score(y_test, pred_arbol)
 precision_bosque = accuracy_score(y_test, pred_bosque)
 
@@ -61,8 +46,6 @@ print(classification_report(y_test, pred_arbol, target_names=iris.target_names))
 
 print("\nReporte de clasificacion - Bosque aleatorio")
 print(classification_report(y_test, pred_bosque, target_names=iris.target_names))
-
-# 7. Mostrar las matrices de confusion
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
 cm_arbol = confusion_matrix(y_test, pred_arbol)
@@ -90,8 +73,6 @@ axes[1].set_ylabel("Valor real")
 
 plt.tight_layout()
 plt.show()
-
-# 8. Visualizar el arbol de decision
 plt.figure(figsize=(16, 8))
 plot_tree(
     arbol,
@@ -102,8 +83,6 @@ plot_tree(
 )
 plt.title("Arbol de decision para clasificar flores Iris")
 plt.show()
-
-# 9. Revisar la importancia de las caracteristicas del bosque
 importancias = pd.Series(
     bosque.feature_importances_,
     index=iris.feature_names
@@ -118,8 +97,6 @@ plt.xlabel("Importancia")
 plt.ylabel("Caracteristica")
 plt.tight_layout()
 plt.show()
-
-# 10. Comparar el resultado general
 resultados = pd.DataFrame({
     "Modelo": ["Arbol de decision", "Bosque aleatorio"],
     "Precision": [precision_arbol, precision_bosque]
