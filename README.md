@@ -70,3 +70,8 @@ Esto instalará automáticamente las librerías necesarias, como `pandas`, `scik
    jupyter lab
    ```
 3. Abre cualquiera de los notebooks (`datos_faltantes.ipynb`, `escalado.ipynb`, `codificacion_variables.ipynb`) y sigue las instrucciones para completar las actividades.
+
+## Clasificación con árboles y bosques aleatorios
+
+- **`4_clasificacion_arboles_bosques.ipynb`**: Notebook con la carga del conjunto Iris, entrenamiento de un árbol de decisión y un bosque aleatorio, evaluación, matrices de confusión e importancia de características.
+- **`4_clasificacion_arboles_bosques.py`**: Código completo reunido en un solo archivo para facilitar su entrega.
